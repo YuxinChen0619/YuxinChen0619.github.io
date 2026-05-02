@@ -1,325 +1,342 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Yuxin Chen</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yuxin Chen — 在AI时代认真生活的女生</title>
+<meta name="description" content="Yuxin Chen 的个人网站。建筑/考古→产品经理，在AI时代认真生活的女生。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Caveat:wght@400;600&family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+<style>
+/* ============ RESET & BASE ============ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 16px; overflow-x: hidden; }
+body {
+  font-family: 'Noto Sans SC', 'Inter', sans-serif;
+  color: #1a1a1a;
+  background: #fefcf6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+::selection { background: #ff2442; color: #fff; }
 
-    :root {
-      --black: #0a0a0a;
-      --white: #fafafa;
-      --gray: #888;
-      --accent: #ff2442;
-      --light: #f2f2f2;
-    }
+/* ============ CUSTOM CURSOR GLOW ============ */
+.cursor-glow {
+  position: fixed;
+  width: 320px; height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,36,66,0.10) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.3s;
+  opacity: 0;
+}
+body:hover .cursor-glow { opacity: 1; }
 
-    body {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      background: var(--white);
-      color: var(--black);
-      line-height: 1.7;
-    }
+/* ============ HERO — TERMINAL STYLE ============ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #0d1117;
+  position: relative;
+  overflow: hidden;
+  padding: 2rem;
+}
 
-    /* 导航 */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 24px 60px;
-      background: rgba(250,250,250,0.92);
-      backdrop-filter: blur(10px);
-      z-index: 100;
-      border-bottom: 1px solid #eee;
-    }
-    nav .logo {
-      font-size: 16px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 36px;
-    }
-    nav ul a {
-      text-decoration: none;
-      color: var(--gray);
-      font-size: 13px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      transition: color 0.2s;
-    }
-    nav ul a:hover { color: var(--black); }
+/* 顶部邮箱 */
+.hero-email-bar {
+  position: absolute;
+  top: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.25);
+  letter-spacing: 0.15em;
+  z-index: 2;
+  white-space: nowrap;
+}
+.hero-email-bar a {
+  color: rgba(255,255,255,0.25);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.hero-email-bar a:hover {
+  color: #ff2442;
+}
 
-    /* Hero */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      padding: 120px 60px 60px;
-      border-bottom: 1px solid #eee;
-    }
-    .hero-content { max-width: 700px; }
-    .hero-tag {
-      font-size: 12px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 24px;
-    }
-    .hero h1 {
-      font-size: clamp(48px, 8vw, 96px);
-      font-weight: 800;
-      line-height: 1.05;
-      letter-spacing: -2px;
-      margin-bottom: 28px;
-    }
-    .hero p {
-      font-size: 18px;
-      color: var(--gray);
-      max-width: 500px;
-      margin-bottom: 40px;
-    }
-    .hero-links { display: flex; gap: 16px; flex-wrap: wrap; }
-    .btn {
-      padding: 14px 32px;
-      font-size: 13px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      text-decoration: none;
-      border: 1.5px solid var(--black);
-      color: var(--black);
-      transition: all 0.2s;
-      cursor: pointer;
-      background: transparent;
-    }
-    .btn:hover { background: var(--black); color: var(--white); }
-    .btn.filled { background: var(--black); color: var(--white); }
-    .btn.filled:hover { background: var(--accent); border-color: var(--accent); }
+.terminal-window {
+  width: 100%;
+  max-width: 720px;
+  background: #161b22;
+  border-radius: 12px;
+  box-shadow: 0 20px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.06);
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+}
+.terminal-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 18px;
+  background: #1c2129;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.terminal-dot {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+}
+.terminal-dot--red   { background: #ff5f57; }
+.terminal-dot--yellow{ background: #febc2e; }
+.terminal-dot--green { background: #28c840; }
+.terminal-header-title {
+  flex: 1;
+  text-align: center;
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.35);
+  margin-right: 52px;
+}
 
-    /* Section 通用 */
-    section {
-      padding: 100px 60px;
-      border-bottom: 1px solid #eee;
-    }
-    .section-label {
-      font-size: 11px;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      color: var(--gray);
-      margin-bottom: 60px;
-    }
-    h2 {
-      font-size: clamp(32px, 5vw, 56px);
-      font-weight: 800;
-      letter-spacing: -1px;
-      margin-bottom: 60px;
-    }
+.terminal-body {
+  padding: 1.8rem 2rem 2.5rem;
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-size: clamp(0.85rem, 1.8vw, 1rem);
+  line-height: 1.8;
+  min-height: 320px;
+}
+.terminal-line {
+  opacity: 0;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+.terminal-line.visible { opacity: 1; }
+.terminal-line .cmd      { color: #ff2442; }
+.terminal-line .cmd-text { color: #8b949e; }
+.terminal-line .output   { color: #f0f0f0; }
+.terminal-line .highlight { color: #28c840; }
+.terminal-line .link {
+  color: #ff2442;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 3px;
+  cursor: default;
+}
 
-    /* 关于我 */
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: start;
-    }
-    .about-text { font-size: 17px; color: #333; line-height: 1.9; }
-    .about-stats { display: flex; flex-direction: column; gap: 32px; }
-    .stat-item { border-top: 1px solid #eee; padding-top: 24px; }
-    .stat-num {
-      font-size: 48px;
-      font-weight: 800;
-      letter-spacing: -2px;
-      color: var(--black);
-    }
-    .stat-label { font-size: 13px; color: var(--gray); margin-top: 4px; }
+.terminal-cursor {
+  display: inline-block;
+  width: 0.6em;
+  height: 1.15em;
+  background: #ff2442;
+  vertical-align: text-bottom;
+  animation: cursorBlink 1s step-end infinite;
+}
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
 
-    /* 工作经历 */
-    .exp-list { display: flex; flex-direction: column; gap: 0; }
-    .exp-item {
-      display: grid;
-      grid-template-columns: 200px 1fr;
-      gap: 40px;
-      padding: 40px 0;
-      border-top: 1px solid #eee;
-    }
-    .exp-item:last-child { border-bottom: 1px solid #eee; }
-    .exp-date { font-size: 13px; color: var(--gray); padding-top: 4px; }
-    .exp-company {
-      font-size: 11px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 8px;
-    }
-    .exp-role { font-size: 22px; font-weight: 700; margin-bottom: 12px; }
-    .exp-desc { font-size: 15px; color: #555; line-height: 1.8; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 0.8; transform: translateY(0); }
+}
 
-    /* 项目 */
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2px;
-      background: #eee;
-    }
-    .project-card {
-      background: var(--white);
-      padding: 48px 40px;
-      transition: background 0.2s;
-      cursor: default;
-    }
-    .project-card:hover { background: var(--black); color: var(--white); }
-    .project-card:hover .project-tag,
-    .project-card:hover .project-desc { color: #aaa; }
-    .project-tag {
-      font-size: 11px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 20px;
-    }
-    .project-name { font-size: 24px; font-weight: 700; margin-bottom: 16px; }
-    .project-desc { font-size: 14px; color: var(--gray); line-height: 1.8; }
+.hero-scroll {
+  position: absolute;
+  bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0;
+  animation: fadeUp 0.6s 8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.hero-scroll span {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+}
+.hero-scroll-line {
+  width: 1px; height: 40px;
+  background: #ff2442;
+  opacity: 0.4;
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+@keyframes scrollPulse {
+  0%, 100% { transform: scaleY(1); opacity: 0.3; }
+  50%       { transform: scaleY(1.5); opacity: 0.6; }
+}
 
-    /* Footer */
-    footer {
-      padding: 60px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    footer .footer-left { font-size: 13px; color: var(--gray); }
-    footer .footer-email {
-      font-size: 18px;
-      font-weight: 700;
-      text-decoration: none;
-      color: var(--black);
-      border-bottom: 2px solid var(--accent);
-      padding-bottom: 2px;
-    }
-
-    /* 响应式 */
-    @media (max-width: 768px) {
-      nav { padding: 20px 24px; }
-      nav ul { gap: 20px; }
-      .hero, section { padding: 100px 24px 60px; }
-      .about-grid { grid-template-columns: 1fr; gap: 40px; }
-      .exp-item { grid-template-columns: 1fr; gap: 8px; }
-      footer { flex-direction: column; gap: 16px; align-items: flex-start; padding: 40px 24px; }
-    }
-  </style>
+/* ============ RESPONSIVE ============ */
+@media (max-width: 768px) {
+  .terminal-window { border-radius: 8px; }
+  .terminal-body   { padding: 1.2rem 1rem 2rem; font-size: 0.8rem; min-height: 260px; }
+  .terminal-header-title { display: none; }
+  .hero-email-bar  { font-size: 0.65rem; }
+}
+</style>
 </head>
 <body>
 
-<!-- 导航 -->
-<nav>
-  <div class="logo">Yuxin Chen</div>
-  <ul>
-    <li><a href="#about">关于</a></li>
-    <li><a href="#experience">经历</a></li>
-    <li><a href="#projects">项目</a></li>
-    <li><a href="#contact">联系</a></li>
-  </ul>
-</nav>
+<!-- Cursor glow -->
+<div class="cursor-glow" id="cursorGlow"></div>
 
-<!-- Hero -->
+<!-- ==================== HERO — TERMINAL ==================== -->
 <section class="hero">
-  <div class="hero-content">
-    <div class="hero-tag">Product Manager · Shanghai</div>
-    <h1>Yuxin<br/>Chen.</h1>
-    <p>小红书产品经理，专注于用户体验与数据驱动的产品决策。</p>
-    <div class="hero-links">
-      <a href="#projects" class="btn filled">查看项目</a>
-      <a href="#contact" class="btn">联系我</a>
+
+  <!-- 顶部邮箱 -->
+  <div class="hero-email-bar">
+    <a href="mailto:Yuxin@earth.online">Yuxin@earth.online</a>
+  </div>
+
+  <div class="terminal-window">
+    <div class="terminal-header">
+      <div class="terminal-dot terminal-dot--red"></div>
+      <div class="terminal-dot terminal-dot--yellow"></div>
+      <div class="terminal-dot terminal-dot--green"></div>
+      <div class="terminal-header-title">yuxin@universe ~ %</div>
     </div>
+    <div class="terminal-body" id="terminalBody">
+      <!-- Lines injected by JS typewriter -->
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="hero-scroll-line"></div>
   </div>
 </section>
 
-<!-- 关于我 -->
-<section id="about">
-  <div class="section-label">01 — About</div>
-  <div class="about-grid">
-    <div class="about-text">
-      <p>你好，我是陈宇新，一名在小红书工作的产品经理。</p>
-      <br/>
-      <p>我相信好的产品来自对用户的深刻理解和对数据的敏锐洞察。我热衷于将复杂的用户需求转化为简洁、有价值的产品体验。</p>
-      <br/>
-      <p>在工作之外，我持续关注 AI 产品方向的前沿动态，探索技术与人文的交汇点。</p>
-    </div>
-    <div class="about-stats">
-      <div class="stat-item">
-        <div class="stat-num">3+</div>
-        <div class="stat-label">年产品经理经验</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-num">10+</div>
-        <div class="stat-label">完整产品项目</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-num">∞</div>
-        <div class="stat-label">对好产品的热情</div>
-      </div>
-    </div>
-  </div>
-</section>
+<script>
+/* ============ TERMINAL TYPEWRITER ============ */
+(function() {
+  const body = document.getElementById('terminalBody');
 
-<!-- 工作经历 -->
-<section id="experience">
-  <div class="section-label">02 — Experience</div>
-  <div class="exp-list">
-    <div class="exp-item">
-      <div class="exp-date">2023 — 至今</div>
-      <div>
-        <div class="exp-company">小红书 · Xiaohongshu</div>
-        <div class="exp-role">产品经理</div>
-        <div class="exp-desc">负责 XX 方向的产品规划与迭代，推动核心指标增长，协调设计、研发、运营多方资源落地产品方案。</div>
-      </div>
-    </div>
-    <div class="exp-item">
-      <div class="exp-date">2021 — 2023</div>
-      <div>
-        <div class="exp-company">前公司名称</div>
-        <div class="exp-role">产品经理</div>
-        <div class="exp-desc">在这里填写你的上一段工作经历和主要成就。</div>
-      </div>
-    </div>
-  </div>
-</section>
+  const lines = [
+    { type: 'cmd',    text: '$ whoami' },
+    { type: 'output', html: '<span class="output">Yuxin Chen</span>' },
+    { type: 'blank' },
+    { type: 'cmd',    text: '$ cat about.md' },
+    { type: 'output', html: '<span class="output">在AI时代认真生活的女生｜ISTJ</span>' },
+    { type: 'output', html: '<span class="output">跟Agent搭档的第一年</span>' },
+    { type: 'output', html: '<span class="output">建筑/考古→产品经理</span>' },
+    { type: 'output', html: '<span class="link">💕 关于[她]在AI时代</span>' },
+    { type: 'blank' },
+    { type: 'cmd',    text: '$ echo "1 person + AI = 1 team"' },
+    { type: 'output', html: '<span class="highlight">✨</span>' },
+  ];
 
-<!-- 项目作品 -->
-<section id="projects">
-  <div class="section-label">03 — Projects</div>
-  <div class="projects-grid">
-    <div class="project-card">
-      <div class="project-tag">Product Design</div>
-      <div class="project-name">项目名称一</div>
-      <div class="project-desc">简短描述这个项目解决了什么问题，达到了什么结果。可以写核心数据指标。</div>
-    </div>
-    <div class="project-card">
-      <div class="project-tag">Data Analysis</div>
-      <div class="project-name">项目名称二</div>
-      <div class="project-desc">简短描述这个项目解决了什么问题，达到了什么结果。可以写核心数据指标。</div>
-    </div>
-    <div class="project-card">
-      <div class="project-tag">Growth</div>
-      <div class="project-name">项目名称三</div>
-      <div class="project-desc">简短描述这个项目解决了什么问题，达到了什么结果。可以写核心数据指标。</div>
-    </div>
-  </div>
-</section>
+  const lineEls = [];
+  lines.forEach(line => {
+    const div = document.createElement('div');
+    div.className = 'terminal-line';
+    if (line.type === 'blank') div.innerHTML = '&nbsp;';
+    lineEls.push({ el: div, data: line });
+    body.appendChild(div);
+  });
 
-<!-- 联系 -->
-<footer id="contact">
-  <div class="footer-left">© 2025 Yuxin Chen · Shanghai</div>
-  <a href="mailto:chenyuxin7@xiaohongshu.com" class="footer-email">
-    chenyuxin7@xiaohongshu.com
-  </a>
-</footer>
+  // Cursor line
+  const cursorLine = document.createElement('div');
+  cursorLine.className = 'terminal-line visible';
+  cursorLine.innerHTML = '<span class="terminal-cursor"></span>';
+  cursorLine.style.opacity = '0';
+  body.appendChild(cursorLine);
 
+  let lineIdx = 0;
+
+  function typeNextLine() {
+    if (lineIdx >= lineEls.length) {
+      cursorLine.style.opacity = '1';
+      return;
+    }
+    const { el, data } = lineEls[lineIdx];
+    el.classList.add('visible');
+    lineIdx++;
+
+    if (data.type === 'blank') {
+      setTimeout(typeNextLine, 150);
+      return;
+    }
+    if (data.type === 'cmd') {
+      typeText(el, data.text, 45, () => setTimeout(typeNextLine, 300));
+    } else {
+      const prefix = '<span class="cmd">&gt; </span>';
+      el.innerHTML = prefix;
+      setTimeout(() => {
+        el.innerHTML = prefix + data.html;
+        setTimeout(typeNextLine, 200);
+      }, 120);
+    }
+  }
+
+  function typeText(el, text, speed, callback) {
+    const parts = text.match(/^(\$ )(.*)/);
+    if (parts) {
+      el.innerHTML = '<span class="cmd">$ </span>';
+      const rest = parts[2];
+      let i = 0;
+      (function typeChar() {
+        if (i < rest.length) {
+          el.innerHTML = '<span class="cmd">$ </span><span class="cmd-text">' + rest.substring(0, i + 1) + '</span>';
+          i++;
+          setTimeout(typeChar, speed + Math.random() * 30);
+        } else {
+          if (callback) callback();
+        }
+      })();
+    } else {
+      el.textContent = '';
+      let i = 0;
+      (function typeChar() {
+        if (i < text.length) {
+          el.textContent += text[i++];
+          setTimeout(typeChar, speed);
+        } else {
+          if (callback) callback();
+        }
+      })();
+    }
+  }
+
+  setTimeout(typeNextLine, 600);
+})();
+
+/* ============ MOUSE FOLLOW CURSOR GLOW ============ */
+(function() {
+  const glow = document.getElementById('cursorGlow');
+  let mx = 0, my = 0, gx = 0, gy = 0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  (function animate() {
+    gx += (mx - gx) * 0.08;
+    gy += (my - gy) * 0.08;
+    glow.style.left = gx + 'px';
+    glow.style.top  = gy + 'px';
+    requestAnimationFrame(animate);
+  })();
+})();
+
+/* ============ PARALLAX ON SCROLL ============ */
+(function() {
+  const win = document.querySelector('.terminal-window');
+  if (!win) return;
+  window.addEventListener('scroll', () => {
+    const st = window.pageYOffset;
+    if (st < window.innerHeight) {
+      win.style.transform = `translateY(${st * 0.15}px)`;
+      win.style.opacity = 1 - (st / window.innerHeight) * 0.6;
+    }
+  }, { passive: true });
+})();
+</script>
 </body>
 </html>
