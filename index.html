@@ -336,6 +336,63 @@ body:hover .cursor-glow { opacity: 1; }
   .about-section { padding: 5rem 1rem; }
   .cbubble-msg { font-size: 0.82rem; padding: 0.65rem 0.9rem; }
 }
+
+/* ============ OPINIONS ============ */
+.opinions-section {
+  position: relative;
+}
+.opinion-slide {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 4rem 2rem;
+  position: relative;
+  overflow: hidden;
+  background: #ff2442;
+}
+.opinion-number {
+  font-family: 'Noto Serif SC', serif;
+  font-weight: 900;
+  font-size: clamp(6rem, 20vw, 16rem);
+  color: #fff;
+  opacity: 0.06;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+.opinion-text {
+  font-family: 'Noto Serif SC', serif;
+  font-weight: 900;
+  font-size: clamp(1.8rem, 5.5vw, 3.8rem);
+  max-width: 800px;
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+  color: #fff;
+  position: relative;
+  z-index: 1;
+  opacity: 0;
+  transform: translateY(50px) scale(0.95);
+  transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.opinion-text.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+.opinion-deco {
+  font-family: 'Caveat', cursive;
+  font-size: 1rem;
+  color: rgba(255,255,255,0.55);
+  margin-top: 2rem;
+  position: relative;
+  z-index: 1;
+}
 </style>
 </head>
 <body>
@@ -403,6 +460,15 @@ body:hover .cursor-glow { opacity: 1; }
       </div>
 
     </div>
+  </div>
+</section>
+
+<!-- ==================== OPINIONS ==================== -->
+<section class="opinions-section">
+  <div class="opinion-slide">
+    <div class="opinion-number">✦</div>
+    <p class="opinion-text">最会用AI的<br>是最知道自己想要什么的人</p>
+    <span class="opinion-deco">— what I believe</span>
   </div>
 </section>
 
@@ -581,6 +647,18 @@ body:hover .cursor-glow { opacity: 1; }
   }, { threshold: 0.15 });
 
   obs.observe(document.getElementById('aboutSection'));
+})();
+
+/* ============ OPINIONS — SCROLL TRIGGER ============ */
+(function() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+      }
+    });
+  }, { threshold: 0.2 });
+  document.querySelectorAll('.opinion-text').forEach(el => observer.observe(el));
 })();
 
 /* ============ MOUSE FOLLOW CURSOR GLOW ============ */
