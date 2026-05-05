@@ -723,6 +723,18 @@ body:hover .cursor-glow { opacity: 1; }
   opacity: 0.3;
   line-height: 1.8;
 }
+.fade-up {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+}
+.fade-up.visible {
+  opacity: 1;
+  transform: none;
+}
+.fade-up:nth-child(2) { transition-delay: 0.1s; }
+.fade-up:nth-child(3) { transition-delay: 0.2s; }
+.fade-up:nth-child(4) { transition-delay: 0.3s; }
 .footer {
   background: #0d1117;
   border-top: 1px solid rgba(255,255,255,0.06);
@@ -745,6 +757,18 @@ body:hover .cursor-glow { opacity: 1; }
     });
   }, { threshold: 0.2 });
   document.querySelectorAll('.opinion-text').forEach(el => observer.observe(el));
+})();
+
+/* ============ FADE-UP OBSERVER ============ */
+(function() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 })();
 
 /* ============ MOUSE FOLLOW CURSOR GLOW ============ */
