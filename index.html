@@ -472,6 +472,23 @@ body:hover .cursor-glow { opacity: 1; }
   </div>
 </section>
 
+<!-- ==================== CONTACT ==================== -->
+<section class="contact" id="contactSection">
+  <div class="contact-inner">
+    <h2 class="contact-headline" id="contactHeadline">Say Hi</h2>
+    <p class="contact-sub" id="contactSub">I don't bite — my AI might though.</p>
+    <div class="contact-links" id="contactLinks">
+      <a href="mailto:yuxincccc@gmail.com" class="contact-link">📮 yuxincccc@gmail.com</a>
+      <span class="contact-link">🛰️ 微信：cyx1370149335</span>
+    </div>
+    <p class="contact-quote" id="contactQuote">"开源人生成长更快"</p>
+  </div>
+</section>
+
+<footer class="footer">
+  <p>© 2026 Yuxin Chen · Built with AI & Curiosity</p>
+</footer>
+
 <script>
 /* ============ TERMINAL TYPEWRITER ============ */
 (function() {
@@ -649,6 +666,90 @@ body:hover .cursor-glow { opacity: 1; }
   obs.observe(document.getElementById('aboutSection'));
 })();
 
+/* ============ CONTACT ============ */
+.contact {
+  background: #0d1117;
+  color: #fff;
+  padding: 8rem 2rem;
+  text-align: center;
+}
+.contact-inner {
+  max-width: 600px;
+  margin: 0 auto;
+}
+.contact-headline {
+  font-family: 'Noto Serif SC', serif;
+  font-weight: 900;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s, transform 0.7s;
+}
+.contact-headline.visible { opacity: 1; transform: none; }
+.contact-sub {
+  font-family: 'Caveat', cursive;
+  font-size: 1.3rem;
+  color: rgba(255,255,255,0.45);
+  margin-bottom: 3rem;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.7s 0.1s, transform 0.7s 0.1s;
+}
+.contact-sub.visible { opacity: 1; transform: none; }
+.contact-links {
+  display: flex;
+  justify-content: center;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 4rem;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.7s 0.2s, transform 0.7s 0.2s;
+}
+.contact-links.visible { opacity: 1; transform: none; }
+.contact-link {
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 400;
+  opacity: 0.65;
+  transition: opacity 0.3s;
+  position: relative;
+  padding-bottom: 4px;
+}
+.contact-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 0; height: 1px;
+  background: #ff2442;
+  transition: width 0.3s;
+}
+.contact-link:hover { opacity: 1; }
+.contact-link:hover::after { width: 100%; }
+.contact-quote {
+  font-weight: 300;
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.3);
+  line-height: 1.8;
+  opacity: 0;
+  transition: opacity 0.7s 0.3s;
+}
+.contact-quote.visible { opacity: 1; }
+.footer {
+  background: #0d1117;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 2rem;
+  text-align: center;
+}
+.footer p {
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.18);
+  letter-spacing: 0.1em;
+}
+
 /* ============ OPINIONS — SCROLL TRIGGER ============ */
 (function() {
   const observer = new IntersectionObserver((entries) => {
@@ -659,6 +760,25 @@ body:hover .cursor-glow { opacity: 1; }
     });
   }, { threshold: 0.2 });
   document.querySelectorAll('.opinion-text').forEach(el => observer.observe(el));
+})();
+
+/* ============ CONTACT — SCROLL TRIGGER ============ */
+(function() {
+  const section = document.getElementById('contactSection');
+  if (!section) return;
+  let triggered = false;
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !triggered) {
+        triggered = true;
+        document.getElementById('contactHeadline').classList.add('visible');
+        document.getElementById('contactSub').classList.add('visible');
+        document.getElementById('contactLinks').classList.add('visible');
+        document.getElementById('contactQuote').classList.add('visible');
+      }
+    });
+  }, { threshold: 0.2 });
+  obs.observe(section);
 })();
 
 /* ============ MOUSE FOLLOW CURSOR GLOW ============ */
