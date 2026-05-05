@@ -164,6 +164,188 @@ body:hover .cursor-glow { opacity: 1; }
   .terminal-header-title { display: none; }
   .hero-email-bar  { font-size: 0.65rem; }
 }
+
+/* ============ ABOUT — DUAL CHAT WINDOWS ============ */
+.about-section {
+  padding: 8rem 2rem;
+  background: linear-gradient(180deg, #0d1117 0%, #111820 100%);
+  position: relative;
+  overflow: hidden;
+}
+.about-section::before {
+  content: '';
+  position: absolute;
+  top: -200px; left: 50%;
+  transform: translateX(-50%);
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,36,66,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.about-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.section-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #ff2442;
+  margin-bottom: 1rem;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s, transform 0.6s;
+}
+.section-label.visible { opacity: 1; transform: none; }
+
+.about-headline {
+  font-family: 'Noto Sans SC', sans-serif;
+  font-weight: 900;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  color: #f0f0f0;
+  text-align: center;
+  margin-bottom: 4rem;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s 0.1s, transform 0.7s 0.1s;
+}
+.about-headline.visible { opacity: 1; transform: none; }
+.about-headline em {
+  font-style: normal;
+  color: #ff2442;
+}
+
+/* Two-screen layout */
+.about-two-screens {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s 0.2s, transform 0.8s 0.2s;
+}
+.about-two-screens.visible { opacity: 1; transform: none; }
+
+/* Chat window chrome */
+.chat-window {
+  background: #161b22;
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.06);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.chat-window-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: #1c2129;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  flex-shrink: 0;
+}
+.chat-window-dots {
+  display: flex;
+  gap: 6px;
+}
+.chat-window-dots span {
+  width: 11px; height: 11px;
+  border-radius: 50%;
+  display: block;
+}
+.chat-window-title {
+  flex: 1;
+  text-align: center;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.3);
+  margin-right: 40px;
+}
+
+/* Chat area */
+.chat-area {
+  padding: 1.4rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  overflow-y: auto;
+  max-height: 520px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,36,66,0.2) transparent;
+}
+.chat-area::-webkit-scrollbar { width: 4px; }
+.chat-area::-webkit-scrollbar-track { background: transparent; }
+.chat-area::-webkit-scrollbar-thumb { background: rgba(255,36,66,0.25); border-radius: 2px; }
+
+/* Individual chat bubbles */
+.cbubble {
+  max-width: 82%;
+  opacity: 0;
+  transform: translateY(10px) scale(0.96);
+}
+.cbubble.pop {
+  animation: bubblePop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+@keyframes bubblePop {
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.cbubble--bubu { align-self: flex-start; }
+.cbubble--yuxin { align-self: flex-end; text-align: right; }
+
+.cbubble-name {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+  color: rgba(255,255,255,0.35);
+}
+.cbubble--yuxin .cbubble-name { text-align: right; }
+
+.cbubble-tag {
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: #ff2442;
+  margin-bottom: 3px;
+  letter-spacing: 0.04em;
+}
+.cbubble--yuxin .cbubble-tag { text-align: right; }
+
+.cbubble-msg {
+  display: inline-block;
+  padding: 0.75rem 1.1rem;
+  border-radius: 18px;
+  font-size: 0.88rem;
+  line-height: 1.65;
+  max-width: 100%;
+}
+.cbubble--bubu .cbubble-msg {
+  background: #ff2442;
+  color: #fff;
+  border-bottom-left-radius: 5px;
+  box-shadow: 0 4px 16px rgba(255,36,66,0.25);
+}
+.cbubble--yuxin .cbubble-msg {
+  background: #fff;
+  color: #1a1a1a;
+  border-bottom-right-radius: 5px;
+  box-shadow: 0 4px 16px rgba(255,255,255,0.1);
+}
+
+/* Responsive */
+@media (max-width: 860px) {
+  .about-two-screens {
+    grid-template-columns: 1fr;
+  }
+  .chat-area { max-height: 400px; }
+}
+@media (max-width: 480px) {
+  .about-section { padding: 5rem 1rem; }
+  .cbubble-msg { font-size: 0.82rem; padding: 0.65rem 0.9rem; }
+}
 </style>
 </head>
 <body>
@@ -189,6 +371,48 @@ body:hover .cursor-glow { opacity: 1; }
   <div class="hero-scroll">
     <span>Scroll</span>
     <div class="hero-scroll-line"></div>
+  </div>
+</section>
+
+<!-- ==================== ABOUT — DUAL CHAT ==================== -->
+<section class="about-section" id="aboutSection">
+  <div class="about-inner">
+    <p class="section-label" id="aboutLabel">My Story</p>
+    <h2 class="about-headline" id="aboutHeadline">一条<em>不太直</em>的路，<br>但每一步都算数</h2>
+
+    <div class="about-two-screens" id="aboutScreens">
+
+      <!-- 第一屏：建筑时期 -->
+      <div class="chat-window">
+        <div class="chat-window-bar">
+          <div class="chat-window-dots">
+            <span style="background:#ff5f57;"></span>
+            <span style="background:#ffbd2e;"></span>
+            <span style="background:#27c93f;"></span>
+          </div>
+          <div class="chat-window-title">卜卜 × Yuxin · 建筑时期</div>
+        </div>
+        <div class="chat-area" id="chatOne">
+          <!-- bubbles injected by JS -->
+        </div>
+      </div>
+
+      <!-- 第二屏：互联网时期 -->
+      <div class="chat-window">
+        <div class="chat-window-bar">
+          <div class="chat-window-dots">
+            <span style="background:#ff5f57;"></span>
+            <span style="background:#ffbd2e;"></span>
+            <span style="background:#27c93f;"></span>
+          </div>
+          <div class="chat-window-title">卜卜 × Yuxin · 互联网时期</div>
+        </div>
+        <div class="chat-area" id="chatTwo">
+          <!-- bubbles injected by JS -->
+        </div>
+      </div>
+
+    </div>
   </div>
 </section>
 
@@ -284,6 +508,90 @@ body:hover .cursor-glow { opacity: 1; }
   }
 
   setTimeout(typeNextLine, 600);
+})();
+
+/* ============ ABOUT — CHAT BUBBLES ============ */
+(function() {
+  const chatOneData = [
+    { side: 'bubu', text: '能跟大家讲讲你的故事吗？' },
+    { side: 'yuxin', text: '好呀，从建筑说起吧 ☺️' },
+    { side: 'bubu', tag: '高中 · 梦的起点', text: '你是怎么走上建筑这条路的？' },
+    { side: 'yuxin', text: '高中时超爱看《梦想改造家》，填报志愿时完全没犹豫，直接冲建筑类专业 🏛️' },
+    { side: 'bubu', tag: '上海 · 本科四年', text: '四年读下来感觉怎么样？' },
+    { side: 'yuxin', text: '很喜欢！建筑是艺术和理性的完美融合，我爱这门学科本身 📐' },
+    { side: 'yuxin', text: '它教会我把混乱变成秩序——这个能力我现在还在用' },
+    { side: 'bubu', text: '但好像你后来没走建筑设计这条路？' },
+    { side: 'yuxin', text: '嗯，去设计院和地产公司实习完，确认了不会继续做建筑设计 ✏️' },
+    { side: 'yuxin', text: '不过热爱这个专业和选择不做这行，这两件事并不矛盾 💕' },
+    { side: 'bubu', tag: '南大考古 · 跨专业保研', text: '然后跨专业保研去考古？这个跨度有点大哦' },
+    { side: 'yuxin', text: '哈哈是的，考古和建筑其实都在和空间、历史、人打交道 🏺' },
+    { side: 'yuxin', text: '而且保研后我就开始海投简历，进互联网实习了——考古给了我一个视角，互联网给了我一个方向' },
+    { side: 'bubu', text: '所以建筑和考古，都没白读 ✨' },
+    { side: 'yuxin', text: '一点都没白读 😄' },
+  ];
+
+  const chatTwoData = [
+    { side: 'bubu', text: '互联网是怎么开始的？' },
+    { side: 'yuxin', text: '保研没事干，海投简历，就这样入坑了 😂' },
+    { side: 'bubu', tag: '抖音电商 · 14个月', text: '第一站是抖音电商运营？' },
+    { side: 'yuxin', text: '对，做的是最贴近真实交易的一线工作——GMV增长、价格竞争力、商家痛点 📦' },
+    { side: 'yuxin', text: '这给了我很多产品经理没有的东西：真实的商业直觉，知道一线业务真正卡在哪' },
+    { side: 'bubu', tag: 'TikTok · AI产品 & GTM', text: '然后去了TikTok做AI产品？' },
+    { side: 'yuxin', text: '嗯，做AIGC能力层的产品经理，积累了对底层链路和迭代方法的认知 🤖' },
+    { side: 'yuxin', text: '这是从"懂业务"走向"懂AI产品"的一步' },
+    { side: 'bubu', tag: '小红书 · 现在 🌟', text: '现在在小红书做什么？' },
+    { side: 'yuxin', text: '商业化AI产品经理，把数据驱动和AI能力用在广告效率提升上，离业务结果更近 🎯' },
+    { side: 'bubu', text: '三段经历跨度挺大的，你怎么看自己这条路？' },
+    { side: 'yuxin', text: '乍一看像到处试水，但其实有一条很清晰的主线——' },
+    { side: 'yuxin', text: '一线业务认知 → AI产品能力 → 商业化策略落地 📈' },
+    { side: 'yuxin', text: '我喜欢用数据和产品手段解决真实经营场景里的问题，一直都是这件事 💡' },
+    { side: 'bubu', text: '路不直，但方向一直在 ✨' },
+    { side: 'yuxin', text: '对，每一步都算数 🫧' },
+  ];
+
+  function makeBubble(d) {
+    const wrap = document.createElement('div');
+    wrap.className = `cbubble cbubble--${d.side}`;
+    let inner = '';
+    inner += `<div class="cbubble-name">${d.side === 'bubu' ? '🥕 卜卜' : 'Yuxin'}</div>`;
+    if (d.tag) inner += `<div class="cbubble-tag">${d.tag}</div>`;
+    inner += `<div class="cbubble-msg">${d.text}</div>`;
+    wrap.innerHTML = inner;
+    return wrap;
+  }
+
+  function animateBubbles(container, data, delay) {
+    data.forEach((d, i) => {
+      const el = makeBubble(d);
+      container.appendChild(el);
+      setTimeout(() => {
+        el.classList.add('pop');
+        container.scrollTop = container.scrollHeight;
+      }, delay + i * 280);
+    });
+  }
+
+  let triggered = false;
+  const screens = document.getElementById('aboutScreens');
+  const label   = document.getElementById('aboutLabel');
+  const headline= document.getElementById('aboutHeadline');
+
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !triggered) {
+        triggered = true;
+        label.classList.add('visible');
+        setTimeout(() => headline.classList.add('visible'), 120);
+        setTimeout(() => {
+          screens.classList.add('visible');
+          animateBubbles(document.getElementById('chatOne'), chatOneData, 200);
+          animateBubbles(document.getElementById('chatTwo'), chatTwoData, 600);
+        }, 300);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  obs.observe(document.getElementById('aboutSection'));
 })();
 
 /* ============ MOUSE FOLLOW CURSOR GLOW ============ */
